@@ -1,9 +1,9 @@
-<template>To na home</template>
+<template>To nas instituições</template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "HomeView",
+  name: "InstitutionsView",
 });
 </script>
