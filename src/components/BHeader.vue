@@ -1,6 +1,8 @@
 <template>
   <header>
-    <div>Logo do Billinho</div>
+    <div>
+      <router-link to="/">Logo do Billinho</router-link>
+    </div>
     <BNavBarVue />
   </header>
 </template>
