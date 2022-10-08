@@ -1,39 +1,34 @@
-import IInstitutions from "@/interfaces/IInstitutions";
-import Resources from "@/utils/resources";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import { FETCH_INSTITUTIONS } from "./actionsTypes";
-import httpClient from "@/http";
-import { ADD_INSTITUTIONS } from "./mutationsTypes";
 import { INSTITUTIONS } from "./gettersTypes";
+import { InstitutionsState, institutions } from "./modules/institutions";
+import { StudentsState, students } from "./modules/students";
 
-interface State {
-  institutions: Array<IInstitutions>;
+export interface State {
+  institutions: InstitutionsState;
+  students: StudentsState;
 }
 
 const store = createStore<State>({
   state: {
-    institutions: [],
+    institutions: {
+      institutions: [],
+    },
+    students: {
+      students: [],
+    },
   },
   getters: {
     [INSTITUTIONS](state) {
       state.institutions;
     },
   },
-  mutations: {
-    [ADD_INSTITUTIONS](state, institutions: IInstitutions[]) {
-      state.institutions = institutions;
-    },
+  mutations: {},
+  actions: {},
+  modules: {
+    institutions,
+    students,
   },
-  actions: {
-    async [FETCH_INSTITUTIONS]({ commit }) {
-      const institutions = await httpClient.get(Resources.INSTITUTIONS);
-      const { data } = institutions.data;
-
-      commit(ADD_INSTITUTIONS, data);
-    },
-  },
-  modules: {},
 });
 
 export const key: InjectionKey<Store<State>> = Symbol();
