@@ -1,30 +1,33 @@
 <template>
   <div>
-    {{ students }}
+    <table>
+      <BTableHeader :columnNames="dataKeys(students)" />
+      <BTableBody :content="students" />
+    </table>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import httpClient from "@/http";
-import Resources from "@/utils/resources";
+import { computed, defineComponent } from "vue";
+import { useStore } from "@/store";
+import { FETCH_STUDENTS } from "@/store/actionsTypes";
+import IStudents from "@/interfaces/IStudents";
+import BTableHeader from "@/components/BTableHeader.vue";
+import BTableBody from "@/components/BTableBody.vue";
 
 export default defineComponent({
   name: "StudentsView",
-  data() {
+  components: { BTableHeader, BTableBody },
+  setup() {
+    const store = useStore();
+    store.dispatch(FETCH_STUDENTS);
     return {
-      students: [],
+      students: computed(() => store.state.students.students),
     };
   },
-  created() {
-    this.fetchStudents();
-  },
   methods: {
-    async fetchStudents(): Promise<void> {
-      const students = await httpClient.get(Resources.STUDENTS);
-      const { data } = students.data;
-
-      this.students = data;
+    dataKeys(data: Array<IStudents>) {
+      return Object.keys(data[0]);
     },
   },
 });
