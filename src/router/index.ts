@@ -14,16 +14,34 @@ const routes: Array<RouteRecordRaw> = [
     path: "/enrollments",
     name: "enrollments",
     component: EnrollmentsView,
+    children: [
+      {
+        path: "new",
+        component: 
+      },
+    ],
   },
   {
     path: "/students",
     name: "students",
     component: StudentsView,
+    children: [
+      {
+        path: "new",
+        component: 
+      },      
+    ],
   },
   {
     path: "/institutions",
     name: "institutions",
     component: InstitutionsView,
+    children: [
+      {
+        path: "new",
+        component: 
+      },      
+    ],
   },
 ];
 
